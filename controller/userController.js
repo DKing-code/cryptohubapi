@@ -1,4 +1,6 @@
 const userModel = require('../model/userModel');
+const accountModel = require('../model/accountModel')
+const generateUniqueId = require('generate-unique-id');
 
 const getAllUsers = async(req,res) =>{
 
@@ -21,7 +23,17 @@ const addUser = async(req,res)=>{
         const createUser = await userModel.create(data);
         if(!createUser){
             return res.status(400).json({status:'false',msg:'Not Created'});
+        }
 
+        // CREATE ACCOUNT FOR USER
+        const serverId = generateUniqueId({ length: 6,useLetters: true});
+          const userData = {
+            user: createUser?._id,
+            serverId :  serverId.toUpperCase()
+          }
+        let createAccount = await accountModel.create(userData)
+        if(!createAccount){
+            return res.json({status:false,msg:"Account not created"})
         }
 
         res.status(201).json({status:true,msg:'User created'});
@@ -30,6 +42,10 @@ const addUser = async(req,res)=>{
         return res.status(500).json({status:false,msg:error.message});
     }
 }
+
+
+
+
 
 module.exports = {
     getAllUsers,
