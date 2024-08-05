@@ -5,7 +5,7 @@ const accountModel = require('../model/accountModel')
 const getUserAccount = async(req,res)=>{
     try {
         const {id} = req.params 
-        const getUser = await accountModel.findOne({_id:id})
+        const getUser = await accountModel.findOne({user:id})
         if(!getUser){
             return res.status(400).json({status:false,msg:'No user'})
         }
@@ -25,10 +25,10 @@ const addAccount = async(req,res)=>{
         const data = req.body 
         const addAccount = await accountModel.create(data)
         if(!addAccount){
-            return res.status(400).json({status:false,msg:'Card not added'});
+            return res.status(400).json({status:false,msg:'Account not added'});
         }
 
-        res.status(201).json({status:true,msg:'Card added'})
+        res.status(201).json({status:true,msg:'Account added'})
 
     } catch (error) {
         return res.status(500).json({status:false,msg:error.message})
@@ -41,7 +41,9 @@ const editAccount = async(req,res)=>{
     try {
         const {id} = req.params
         const data = req.body
-        const editAccount = await accountModel.findOneAndUpdate({_id:id, data})
+
+        console.log(id)
+        const editAccount = await accountModel.updateOne({user:id},data)
         if(!editAccount){
             return res.status(400).json({status:false,msg:'Cannot edit'})
         }

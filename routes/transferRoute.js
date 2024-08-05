@@ -4,7 +4,9 @@ const {
     getUserTransfer,
     addTransfer,
     editTransfer,
-    deleteTransfer
+    deleteTransfer,
+    getAllTransfer,
+    getTransferById
 } = require('../controller/transferController')
 
 
@@ -12,6 +14,8 @@ const {
 
 
 router.get('/:id',getUserTransfer)
+router.get('/',getAllTransfer)
+router.get('/getTransferById/:id',getTransferById)
 
 
 router.post('/' ,addTransfer)

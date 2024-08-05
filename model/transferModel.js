@@ -3,11 +3,13 @@ const mongoose = require('mongoose');
 
 const transferSchema = mongoose.Schema({
     user:{type:mongoose.Schema.Types.ObjectId, ref:'User'},
+    transId: {type:String},
     from:{type:String},
     to:{type:String},
     amount:{type:Number},
     date:{type:String},
-    status:{type:String,enum:['successful', 'failed','pending','verifying']},
+    typeOfTransfer: {type:String,enum:['deposit','withdrawal'],required:true},
+    status:{type:String,enum:['successful', 'failed','pending','verifying'],default:"pending"},
 })
 
 
