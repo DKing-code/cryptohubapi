@@ -17,6 +17,34 @@ const getUserAccount = async(req,res)=>{
 }
 
 
+const getUserAccountBalances = async (req, res) => {
+    try {
+      const { id } = req.params; // Assume the user ID is passed as a parameter
+  
+      // Find the account associated with the user
+      const account = await accountModel.findOne({ user: id }).populate('user', 'name email'); // Assuming you want to populate user info
+  
+      if (!account) {
+        return res.status(404).json({ message: 'Account not found for this user' });
+      }
+  
+      // Array of balance objects
+      const balances = [
+        { name: 'balance1', amount: account.balance1   },
+        { name: 'balance2', amount: account.balance2  },
+        { name: 'balance3', amount: account.balance3  },
+        { name: 'balance4', amount: account.balance4 },
+      ];
+  
+      // Response with an array of balance objects
+      return res.status(200).json(balances);
+    } catch (error) {
+      console.error('Error fetching account:', error);
+      return res.status(500).json({ message: 'Server error' });
+    }
+  };
+
+
 
 
 // ADD NEW ACCOUNT
@@ -72,6 +100,7 @@ const deleteAccount = async(req,res)=>{
 
 module.exports = {
     getUserAccount,
+    getUserAccountBalances,
     addAccount,
     editAccount,
     deleteAccount

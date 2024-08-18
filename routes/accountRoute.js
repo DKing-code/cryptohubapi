@@ -4,11 +4,14 @@ const {
     getUserAccount,
     addAccount,
     editAccount,
-    deleteAccount
+    deleteAccount,
+    getUserAccountBalances
 } = require('../controller/accountController')
 
 
 router.get('/:id' , getUserAccount)
+
+router.get('/getBalance/:id' , getUserAccountBalances)
 
 
 

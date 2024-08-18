@@ -19,8 +19,8 @@ const addTransfer = async(req,res)=>{
         if (data?.typeOfTransfer === 'deposit') {
             account[data.to] += data.amount;
         } else if (data.typeOfTransfer === 'withdrawal') {
-            if (account[data.from] < data.amount) {
-                return res.status(400).json({ error: 'Insufficient funds' });
+            if (account[data.from] < data.amount|| account[data.from] <= 0) {
+                return res.json({status:false , msg: 'Insufficient funds' });
             }
             account[data.from] -= data.amount;
         } else {
@@ -34,7 +34,7 @@ const addTransfer = async(req,res)=>{
 
 
 
-        res.status(201).json({status:true,msg:'Card added'})
+        res.status(201).json({status:true,msg:'tras added'})
 
     } catch (error) {
         return res.status(500).json({status:false,msg:error.message})
@@ -76,9 +76,9 @@ const getTransferById = async(req,res)=>{
 const getUserTransfer = async(req,res)=>{
     try {
         const {id} = req.params 
-        const getTransfer = await transferModel.findOne({user:id})
+        const getTransfer = await transferModel.find({user:id})
         if(!getTransfer || getTransfer.length <= 0 ){
-            return res.status(400).json({status:false,msg:'No transfer'})
+            return res.json({status:false,msg:'No transfer'})
         }
 
         res.status(200).json({status:true,data : getTransfer})

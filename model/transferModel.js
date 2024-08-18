@@ -10,7 +10,7 @@ const transferSchema = mongoose.Schema({
     date:{type:String},
     typeOfTransfer: {type:String,enum:['deposit','withdrawal'],required:true},
     status:{type:String,enum:['successful', 'failed','pending','verifying'],default:"pending"},
-})
+},{timestamps:true})
 
 
 const transferModel = mongoose.model('Transfer',transferSchema)

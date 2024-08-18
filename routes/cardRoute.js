@@ -5,7 +5,7 @@ const {getUserCards,addCard,editCard,
 
 
 
-router.get('/',getUserCards)
+router.get('/:id',getUserCards)
 
 
 router.post('/',addCard )

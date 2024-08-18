@@ -5,13 +5,16 @@ const cardModel = require('../model/cardModel')
 // GET USER CARD
 const getUserCards = async(req,res)=>{
     try {
-        const {id} = rea.params
-        const getCards = await cardModel.find({_id:id})
+        const {id} = req.params
+        const getCards = await cardModel.find
+        ({user:id})
         if(!getCards){
             return res.status(400).json({status:false})
         }
+
+        return res.status(200).json({status:true,data:getCards})
     } catch (error) {
-        
+        return res.status(500).json({status:false,msg:error.message})
     }
 }
 

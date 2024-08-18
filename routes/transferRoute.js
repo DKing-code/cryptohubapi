@@ -14,6 +14,7 @@ const {
 
 
 router.get('/:id',getUserTransfer)
+
 router.get('/',getAllTransfer)
 router.get('/getTransferById/:id',getTransferById)
 
