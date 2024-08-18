@@ -14,9 +14,9 @@ const transferRoute = require('./routes/transferRoute')
 app.use(express.json())
 app.use(cors())
 
-
-mongoose.connect('mongodb://127.0.0.1:27017/cryptomin').then(()=>{
-    app.listen(4000,()=>{
+//mongodb+srv://d_hacker:<password>@cluster0.dvr8nwc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+mongoose.connect('mongodb+srv://d_hacker:dekin11@cluster0.dvr8nwc.mongodb.net/cryptohub?retryWrites=true&w=majority&appName=Cluster0/cryptohub').then(()=>{
+    app.listen(8000,()=>{
         console.log('Connected');
     })
 }).catch(err=>{
