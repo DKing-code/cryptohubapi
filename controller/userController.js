@@ -43,8 +43,7 @@ const addUser = async(req,res)=>{
           user: {
           id: createAccount._id,
           email: createAccount.email,
-          firstName: createAccount.firstName,
-          lastName: createAccount.lastName
+          fullname: createAccount.fullname,
         }});
 
     } catch (error) {
@@ -82,8 +81,7 @@ const loginUser = async (req, res) => {
         user: {
           id: user._id,
           email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName
+          fullname: createAccount.fullname,
         }
       });
     } catch (error) {
