@@ -23,7 +23,7 @@ const addUser = async(req,res)=>{
         const createUser = new userModel(data);
         const saveUser = await createUser.save();
         if(!saveUser){
-            return res.status(400).json({status:'false',msg:'Not Created'});
+            return res.json({status:'false',msg:'Not Created'});
         }
 
         // CREATE ACCOUNT FOR USER
@@ -37,7 +37,15 @@ const addUser = async(req,res)=>{
             return res.json({status:false,msg:"Account not created"})
         }
 
-        res.status(201).json({status:true,msg:'User created'});
+        res.status(201).json({
+          status:true,
+          msg:'User created',
+          user: {
+          id: createAccount._id,
+          email: createAccount.email,
+          firstName: createAccount.firstName,
+          lastName: createAccount.lastName
+        }});
 
     } catch (error) {
         return res.status(500).json({status:false,msg:error.message});
@@ -51,7 +59,7 @@ const loginUser = async (req, res) => {
       // Check if the user exists
       const user = await userModel.findOne({ email,password });
       if (!user) {
-        return res.status(404).json({ status: false, msg: 'User not found' });
+        return res.json({ status: false, msg: 'User not found' });
       }
   
       // Check if the password is correct
